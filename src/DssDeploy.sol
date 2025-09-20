@@ -472,6 +472,21 @@ contract DssDeploy is DSAuth {
         ilks[ilk].clip.rely(address(pause.proxy()));
     }
 
+    function authEOA(address EOA) public auth {
+        vat.rely(EOA);
+        cat.rely(EOA);
+        dog.rely(EOA);
+        vow.rely(EOA);
+        jug.rely(EOA);
+        pot.rely(EOA);
+        dai.rely(EOA);
+        spotter.rely(EOA);
+        flap.rely(EOA);
+        flop.rely(EOA);
+        cure.rely(EOA);
+        end.rely(EOA);
+    }
+
     function releaseAuth() public auth {
         vat.deny(address(this));
         cat.deny(address(this));

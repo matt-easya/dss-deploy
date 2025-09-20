@@ -52,7 +52,6 @@ contract InitIlk is Script {
         address DOG = vm.envAddress("DOG");
 
         // Parameters in Maker units
-        uint256 RAY = 10 ** 27;
         uint256 RAD = 10 ** 45;
 
         // 150 percent LR
@@ -66,7 +65,6 @@ contract InitIlk is Script {
 
         vm.startBroadcast();
 
-        // Stability fee
         JugLike(JUG).drip(ILK);
 
         // Liquidation ratio
