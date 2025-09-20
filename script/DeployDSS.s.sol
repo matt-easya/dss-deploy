@@ -53,11 +53,6 @@ contract DeployDss is Script {
         deploy.deployPause(PAUSE_DELAY, AUTHORITY);
         deploy.deployESM(GOV, ESM_MIN);
         deploy.authEOA(EOA);
-        // Example for adding one collateral (fill these from env or hardcode)
-        // bytes32 ILK = vm.envBytes32("ILK");        // e.g. bytes32("WETH-A")
-        // address JOIN = vm.envAddress("JOIN");
-        // address PIP  = vm.envAddress("PIP");
-        // deploy.deployCollateralClip(ILK, JOIN, PIP, address(0));
 
         // Log core addresses for .envrc
         console2.log("DSS_DEPLOY=", address(deploy));
