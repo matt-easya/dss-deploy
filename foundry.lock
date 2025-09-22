@@ -1,0 +1,23 @@
+{
+  "lib/ds-auth": {
+    "rev": "a51e7caa1f03eeffed66d67f3b38605e0f1f881d"
+  },
+  "lib/ds-pause": {
+    "rev": "5e798dd96bfaac978cd9fe3c0259b486e8afd213"
+  },
+  "lib/ds-test": {
+    "rev": "0a5da56b0d65960e6a994d2ec8245e6edd38c248"
+  },
+  "lib/dss": {
+    "rev": "fa4f6630afb0624d04a003e920b0d71a00331d98"
+  },
+  "lib/esm": {
+    "rev": "225ddf29b1515d10ea6d4f9cde5814a73085ce09"
+  },
+  "lib/forge-std": {
+    "tag": {
+      "name": "v1.10.0",
+      "rev": "8bbcf6e3f8f62f419e5429a0bd89331c85c37824"
+    }
+  }
+}
