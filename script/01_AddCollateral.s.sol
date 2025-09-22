@@ -65,7 +65,7 @@ contract AddCollateral is Script {
         console2.log("JOIN=", address(join));
         console2.log("PIP=", address(pip));
         // Read back clip from the deployer mapping
-        (, Clipper clip, ) = deploy.ilks(ILK);
+        (Clipper clip, ) = deploy.ilks(ILK);
         console2.log("CLIP=", address(clip));
 
         vm.stopBroadcast();

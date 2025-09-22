@@ -3,7 +3,7 @@ pragma solidity >=0.5.12;
 
 import "forge-std/Script.sol";
 import "forge-std/console2.sol";
-import {DssDeploy, VatFab, JugFab, VowFab, CatFab, DogFab, DaiFab, DaiJoinFab, FlapFab, FlipFab, FlopFab, ClipFab, CalcFab, SpotFab, PotFab, CureFab, EndFab, ESMFab, PauseFab} from "src/DssDeploy.sol";
+import {DssDeploy, VatFab, JugFab, VowFab, DogFab, DaiFab, DaiJoinFab, ClipFab, CalcFab, SpotFab, PotFab, CureFab, EndFab, ESMFab, PauseFab} from "src/DssDeploy.sol";
 
 contract DeployDss is Script {
     function run() external {
@@ -24,15 +24,11 @@ contract DeployDss is Script {
             new VatFab(),
             new JugFab(),
             new VowFab(),
-            new CatFab(),
             new DogFab(),
             new DaiFab(),
             new DaiJoinFab()
         );
         deploy.addFabs2(
-            new FlapFab(),
-            new FlopFab(),
-            new FlipFab(),
             new ClipFab(),
             new CalcFab(),
             new SpotFab(),
@@ -59,12 +55,9 @@ contract DeployDss is Script {
         console2.log("VAT=", address(deploy.vat()));
         console2.log("JUG=", address(deploy.jug()));
         console2.log("VOW=", address(deploy.vow()));
-        console2.log("CAT=", address(deploy.cat()));
         console2.log("DOG=", address(deploy.dog()));
         console2.log("DAI=", address(deploy.dai()));
         console2.log("DAI_JOIN=", address(deploy.daiJoin()));
-        console2.log("FLAP=", address(deploy.flap()));
-        console2.log("FLOP=", address(deploy.flop()));
         console2.log("SPOT=", address(deploy.spotter()));
         console2.log("POT=", address(deploy.pot()));
         console2.log("CURE=", address(deploy.cure()));
