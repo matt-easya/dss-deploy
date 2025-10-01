@@ -437,17 +437,18 @@ contract Controller is InterchainTokenExecutable {
         // }
 
         // Get token ID for this token
-        bytes32 tokenId = _getTokenId(token);
+        bytes32 tokenId =0xc8895f8ceb0cae9da15bb9d2bc5859a184ca0f61c88560488355c8a7364deef8;
         ERC20(token).approve(interchainTokenService, amount + 1e15); // amount + gas
+        uint256 gasAmount = (amount*1e3); // 10% of amount for gas
         // Transfer back to source chain
-        // InterchainTokenService(interchainTokenService).interchainTransfer(
-        //     tokenId,
-        //     XRPL_AXELAR_CHAIN_ID,
-        //     sourceAddress,
-        //     amount,
-        //     "",
-        //     1 ether// 1 token for gas
-        // );
+        InterchainTokenService(interchainTokenService).interchainTransfer(
+            tokenId,
+            "xrpl",
+            sourceAddress,
+            amount,
+            "",
+            gasAmount // 1 token for gas
+        );
     }
 
     function _depositAndSwap(
@@ -517,7 +518,7 @@ contract Controller is InterchainTokenExecutable {
         // Get USDC balance
         // uint256 usdcBalance = ERC20(usdcToken).balanceOf(address(this));
 
-        return usdcAmount;//usdcBalance;
+        return usdcAmount; //usdcBalance;
     }
 
     function _getTokenId(address token) internal view returns (bytes32) {
