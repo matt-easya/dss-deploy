@@ -59,7 +59,7 @@ contract AddCollateral is Script {
             address(pip),
             address(0)
         );
-
+        
         // Log addresses to paste into .envrc
         console2.log("TOKEN=", 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE);
         console2.log("JOIN=", address(join));
