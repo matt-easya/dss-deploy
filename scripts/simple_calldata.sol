@@ -11,7 +11,7 @@ contract SimpleCalldata is Script {
         
         // Parameters
         bytes32 ilk = "XRP-A"; // Encode directly as bytes32
-        uint256 daiToDraw = 10 * 10**18; // 1 DAI
+        uint256 daiToDraw = 5 * 10**18; // 1 DAI
         
         console.log("Operation:", vm.toString(OP_DEPOSIT_AND_SWAP));
         console.log("ILK:", vm.toString(ilk));
