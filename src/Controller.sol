@@ -438,16 +438,16 @@ contract Controller is InterchainTokenExecutable {
 
         // Get token ID for this token
         bytes32 tokenId = _getTokenId(token);
-
+        ERC20(token).approve(interchainTokenService, amount + 1e15); // amount + gas
         // Transfer back to source chain
-        InterchainTokenService(interchainTokenService).interchainTransfer(
-            tokenId,
-            XRPL_AXELAR_CHAIN_ID,
-            sourceAddress,
-            amount,
-            "",
-            1 ether // 1 token for gas
-        );
+        // InterchainTokenService(interchainTokenService).interchainTransfer(
+        //     tokenId,
+        //     XRPL_AXELAR_CHAIN_ID,
+        //     sourceAddress,
+        //     amount,
+        //     "",
+        //     1 ether// 1 token for gas
+        // );
     }
 
     function _depositAndSwap(
