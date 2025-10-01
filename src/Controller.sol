@@ -106,6 +106,9 @@ contract Controller is InterchainTokenExecutable {
     event OpLog(
         bytes32 data
     );
+    event DaiLog(
+        uint256 data
+    );
     // Constants
     string constant XRPL_AXELAR_CHAIN_ID = "xrpl";
     
@@ -188,29 +191,25 @@ contract Controller is InterchainTokenExecutable {
         // First unwrap the outer layer
         (bytes32 opcode, bytes memory params) = abi.decode(data, (bytes32, bytes));
         
-        // Now decode the operation and parameters
-        // (bytes32 op, bytes memory params) = abi.decode(innerData, (bytes32, bytes));
-        
         emit OpLog(opcode);
-        
-        // // Handle the operation
-        // if (op == OP_DEPOSIT_AND_SWAP) {
-        //     _depositAndSwap(addressHash, sourceAddress, params, tokenId, token, amount);
-        // } else if (op == OP_OPEN_CDP) {
+        // Handle the operation
+        if (opcode == OP_DEPOSIT_AND_SWAP) {
+            _depositAndSwap(addressHash, sourceAddress, params, tokenId, token, amount);
+        // } else if (opcode == OP_OPEN_CDP) {
         //     _openCdp(addressHash, sourceAddress, params, tokenId, token, amount);
-        // } else if (op == OP_DEPOSIT_COLLATERAL) {
+        // } else if (opcode == OP_DEPOSIT_COLLATERAL) {
         //     _depositCollateral(addressHash, sourceAddress, params, tokenId, token, amount);
-        // } else if (op == OP_DRAW_DAI) {
+        // } else if (opcode == OP_DRAW_DAI) {
         //     _drawDai(addressHash, sourceAddress, params, tokenId, token, amount);
-        // } else if (op == OP_REPAY_DAI) {
+        // } else if (opcode == OP_REPAY_DAI) {
         //     _repayDai(addressHash, sourceAddress, params, tokenId, token, amount);
-        // } else if (op == OP_WITHDRAW_COLLATERAL) {
+        // } else if (opcode == OP_WITHDRAW_COLLATERAL) {
         //     _withdrawCollateral(addressHash, sourceAddress, params, tokenId, token, amount);
-        // } else if (op == OP_CLOSE_CDP) {
+        // } else if (opcode == OP_CLOSE_CDP) {
         //     _closeCdp(addressHash, sourceAddress, params, tokenId, token, amount);
-        // } else {
-        //     revert InvalidOp(op);
-        // }
+        } else {
+            revert InvalidOp(opcode);
+        }
     }
 
     function _openCdp(
@@ -462,7 +461,6 @@ contract Controller is InterchainTokenExecutable {
         uint256 amount
     ) internal {
         (bytes32 ilk, uint256 daiToDraw) = abi.decode(params, (bytes32, uint256));
-        
         // Validate token and ilk
         if (tokenIlks[token] != ilk) revert InvalidIlk(ilk);
         if (ilkTokenIds[ilk] != tokenId) revert InvalidTokenId(tokenId);
