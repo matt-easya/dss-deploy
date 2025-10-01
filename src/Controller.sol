@@ -277,15 +277,15 @@ contract Controller is InterchainTokenExecutable {
         
         // Transfer tokens to join contract
         address token = collateralTokens[ilk];
-        if (!ERC20(token).transfer(join, amount)) {
-            revert TransferFailed(token, address(this), join, amount);
-        }
+        // if (!ERC20(token).transfer(join, amount)) {
+        //     revert TransferFailed(token, address(this), join, amount);
+        // }
         
         // Join collateral into vat
         JoinLike(join).join(address(this), amount);
         
-        // Add collateral to CDP
-        cdpManager.frob(cdpId, int(amount), 0);
+        // // Add collateral to CDP
+        // cdpManager.frob(cdpId, int(amount), 0);
     }
 
     function _drawDai(
@@ -465,6 +465,7 @@ contract Controller is InterchainTokenExecutable {
         if (tokenIlks[token] != ilk) revert InvalidIlk(ilk);
         if (ilkTokenIds[ilk] != tokenId) revert InvalidTokenId(tokenId);
         
+        
         uint256 cdpId = userCdps[addressHash];
         bool isNewCdp = false;
         
@@ -479,22 +480,23 @@ contract Controller is InterchainTokenExecutable {
         // Step 1: Deposit XRP collateral
         _depositCollateralInternal(addressHash, cdpId, ilk, amount);
         
-        // Step 2: Draw DAI
-        cdpManager.frob(cdpId, 0, int(daiToDraw));
-        cdpManager.move(cdpId, address(this), daiToDraw);
-        daiJoin.exit(address(this), daiToDraw);
+        emit DaiLog(daiToDraw);
+        // // Step 2: Draw DAI
+        // cdpManager.frob(cdpId, 0, int(daiToDraw));
+        // cdpManager.move(cdpId, address(this), daiToDraw);
+        // daiJoin.exit(address(this), daiToDraw);
         
-        // Step 3: Swap DAI to USDC via PSM
-        uint256 usdcAmount = _swapDaiToUsdc(daiToDraw);
+        // // Step 3: Swap DAI to USDC via PSM
+        // uint256 usdcAmount = _swapDaiToUsdc(daiToDraw);
         
-        // Step 4: Transfer USDC back to source chain
-        _transferToSource(sourceAddress, usdcToken, usdcAmount);
+        // // Step 4: Transfer USDC back to source chain
+        // _transferToSource(sourceAddress, usdcToken, usdcAmount);
         
-        emit DepositAndSwap(sourceAddress, addressHash, cdpId, amount, daiToDraw, usdcAmount);
+        // emit DepositAndSwap(sourceAddress, addressHash, cdpId, amount, daiToDraw, usdcAmount);
         
-        if (isNewCdp) {
-            emit CdpOpened(sourceAddress, addressHash, cdpId, ilk);
-        }
+        // if (isNewCdp) {
+        //     emit CdpOpened(sourceAddress, addressHash, cdpId, ilk);
+        // }
     }
 
     function _swapDaiToUsdc(uint256 daiAmount) internal returns (uint256) {

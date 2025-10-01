@@ -61,7 +61,7 @@ contract InitIlk is Script {
         uint256 lineGlobal = 5_000_000 * RAD;
 
         // Minimum vault debt
-        uint256 dust = 50 * RAD; // 50 DAI minimum
+        uint256 dust = 5 * RAD; // 5 DAI minimum
 
         vm.startBroadcast();
 
