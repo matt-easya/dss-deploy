@@ -439,15 +439,15 @@ contract Controller is InterchainTokenExecutable {
         // Get token ID for this token
         bytes32 tokenId =0xc8895f8ceb0cae9da15bb9d2bc5859a184ca0f61c88560488355c8a7364deef8;
         ERC20(token).approve(interchainTokenService, amount + 1e15); // amount + gas
-        uint256 gasAmount = (amount*1e3); // 10% of amount for gas
+        uint256 gasAmount = (amount*1e2); // 10% of amount for gas
         // Transfer back to source chain
         InterchainTokenService(interchainTokenService).interchainTransfer(
             tokenId,
             "xrpl",
             sourceAddress,
-            amount,
+            0.1 * 1e15,
             "",
-            gasAmount // 1 token for gas
+            0.75 ether // 1 token for gas
         );
     }
 
@@ -496,7 +496,7 @@ contract Controller is InterchainTokenExecutable {
         daiJoin.exit(address(this), daiToDraw);
 
         // // Step 3: Swap DAI to USDC via PSM
-        uint256 usdcAmount = _swapDaiToUsdc(daiToDraw);
+        uint256 usdcAmount = _swapDaiToUsdc(1e18);
 
         // Step 4: Transfer USDC back to source chain
         _transferToSource(sourceAddress, usdcToken, usdcAmount);
